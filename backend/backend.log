@@ -1,0 +1,20 @@
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43237]
+INFO:     Started server process [48412]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:45728 - "OPTIONS /api/search HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45730 - "POST /api/search HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45730 - "GET /api/candidates/candidate-001 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45728 - "GET /api/candidates/candidate-001/timeline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45742 - "GET /api/candidates/candidate-001/change HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45730 - "GET /api/candidates/candidate-001 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45754 - "GET /api/candidates/candidate-001/timeline HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45728 - "GET /api/candidates/candidate-001/change HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45768 - "GET /api/static/demo/candidate-001/2024-01.jpg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45776 - "GET /api/static/demo/candidate-001/2025-07.jpg HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45782 - "OPTIONS /api/candidates/candidate-001/review HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45796 - "POST /api/candidates/candidate-001/review HTTP/1.1" 200 OK

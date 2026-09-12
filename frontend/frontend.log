@@ -1,0 +1,11 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+  ▲ Next.js 14.2.0
+  - Local:        http://local ○ Compiling / ...
+ ✓ Compiled / in 10.6s (1040 modules)
+ GET / 200 in 11707ms
+ ✓ Compiled in 1253ms (500 modules)
+ GET / 200 in 97ms
