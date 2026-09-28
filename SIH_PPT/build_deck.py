@@ -28,16 +28,13 @@ SUCCESS_GREEN = RGBColor(52, 199, 89)# #34C759
 FONT_HEADING = "Helvetica"
 FONT_BODY = "Arial"
 
-# Helper: Set dark background for a slide
 def set_slide_background(slide):
     background = slide.background
     fill = background.fill
     fill.solid()
     fill.fore_color.rgb = BG_DARK
 
-# Helper: Create header bar on a slide
 def add_slide_header(slide, title_text, category_text="SIH 2026 PS 26227 | GEOSPATIAL INTELLIGENCE PLATFORM"):
-    # Category / Tag Line
     cat_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.733), Inches(0.3))
     tf_cat = cat_box.text_frame
     tf_cat.word_wrap = True
@@ -48,7 +45,6 @@ def add_slide_header(slide, title_text, category_text="SIH 2026 PS 26227 | GEOSP
     p_cat.font.color.rgb = AZURE_BRIGHT
     p_cat.font.name = FONT_HEADING
 
-    # Slide Title
     title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.65), Inches(11.733), Inches(0.6))
     tf_title = title_box.text_frame
     tf_title.word_wrap = True
@@ -59,7 +55,6 @@ def add_slide_header(slide, title_text, category_text="SIH 2026 PS 26227 | GEOSP
     p_title.font.color.rgb = TEXT_WHITE
     p_title.font.name = FONT_HEADING
 
-# Helper: Add modular card container shape
 def add_card(slide, left, top, width, height, border_color=AZURE_MAIN, bg_color=BG_CARD):
     shape = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
     shape.fill.solid()
@@ -77,13 +72,11 @@ def build_slide_1():
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
 
-    # Accent Top Line
     accent = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(13.333), Inches(0.1))
     accent.fill.solid()
     accent.fill.fore_color.rgb = AZURE_BRIGHT
     accent.line.fill.background()
 
-    # Subtitle Badge
     badge = add_card(slide, Inches(0.8), Inches(0.8), Inches(4.2), Inches(0.4), border_color=AZURE_BRIGHT)
     tf = badge.text_frame
     p = tf.paragraphs[0]
@@ -93,7 +86,6 @@ def build_slide_1():
     p.font.color.rgb = AZURE_BRIGHT
     p.alignment = PP_ALIGN.CENTER
 
-    # Main Title
     tb = slide.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(11.733), Inches(1.2))
     tf = tb.text_frame
     p = tf.paragraphs[0]
@@ -107,8 +99,7 @@ def build_slide_1():
     p2.font.size = Pt(16)
     p2.font.color.rgb = AZURE_BRIGHT
 
-    # Left Box - Problem Bottleneck
-    c1 = add_card(slide, Inches(0.8), Inches(2.8), Inches(5.6), Inches(4.0))
+    add_card(slide, Inches(0.8), Inches(2.8), Inches(5.6), Inches(4.0))
     tb1 = slide.shapes.add_textbox(Inches(1.0), Inches(3.0), Inches(5.2), Inches(3.6))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
@@ -131,15 +122,12 @@ def build_slide_1():
         p.font.bold = True
         p.font.size = Pt(11)
         p.font.color.rgb = TEXT_WHITE
-
-        # Append description
         run = p.add_run()
         run.text = b_desc
         run.font.bold = False
         run.font.color.rgb = TEXT_MUTED
 
-    # Right Box - Satellite Visual Evidence
-    c2 = add_card(slide, Inches(6.8), Inches(2.8), Inches(5.733), Inches(4.0), border_color=AZURE_BRIGHT)
+    add_card(slide, Inches(6.8), Inches(2.8), Inches(5.733), Inches(4.0), border_color=AZURE_BRIGHT)
     if os.path.exists("SIH_PPT/assets/satellite/change_mask.png"):
         slide.shapes.add_picture("SIH_PPT/assets/satellite/change_mask.png", Inches(7.0), Inches(3.0), Inches(5.333), Inches(3.6))
 
@@ -149,7 +137,6 @@ def build_slide_2():
     set_slide_background(slide)
     add_slide_header(slide, "Why Existing Satellite Workflows Break in Operations")
 
-    # 4 Cards Layout
     cards = [
         ("1. METADATA SEARCH GAP", "Can answer: 'Show region X in 2024'\nCannot answer: 'Show industrial expansion near river banks'\nResult: Hours spent manually sifting irrelevant scenes.", ALERT_RED),
         ("2. NAIVE DIFFERENCE NOISE", "Simple pairwise subtraction flags crop growth, cloud shadows, and seasonal phenology as major structural changes.\nResult: 70%+ analyst time wasted on false alarms.", ALERT_RED),
@@ -162,7 +149,6 @@ def build_slide_2():
         col = idx % 2
         left = Inches(0.8 + col * 5.95)
         top = Inches(1.5 + row * 2.7)
-
         add_card(slide, left, top, Inches(5.7), Inches(2.5), border_color=color)
 
         tb = slide.shapes.add_textbox(left + Inches(0.2), top + Inches(0.2), Inches(5.3), Inches(2.1))
@@ -186,7 +172,6 @@ def build_slide_3():
     set_slide_background(slide)
     add_slide_header(slide, "The Solution: An Analyst-Centric Geospatial Intelligence Platform")
 
-    # Workflow Diagram Box
     add_card(slide, Inches(0.8), Inches(1.4), Inches(11.733), Inches(1.2), border_color=AZURE_BRIGHT)
     tb = slide.shapes.add_textbox(Inches(1.0), Inches(1.5), Inches(11.333), Inches(1.0))
     tf = tb.text_frame
@@ -204,7 +189,6 @@ def build_slide_3():
     p2.font.bold = True
     p2.font.color.rgb = TEXT_WHITE
 
-    # 3 Strategic Pillars
     pillars = [
         ("SEMANTIC DISCOVERY", "Replaces rigid metadata filters with VLM/CLIP multimodal embeddings. Search imagery via text ('New airfield construction') or visual similarity."),
         ("TEMPORAL REASONING", "Reconstructs continuous spectral trajectories across multi-year stacks. Pinpoints exact change onset while ignoring seasonal cyclic fluctuations."),
@@ -236,12 +220,10 @@ def build_slide_4():
     set_slide_background(slide)
     add_slide_header(slide, "System Architecture: Three-Plane Modular Design")
 
-    # Left Side: Architecture Diagram Image
     add_card(slide, Inches(0.8), Inches(1.4), Inches(6.8), Inches(5.5), border_color=AZURE_MAIN)
     if os.path.exists("SIH_PPT/assets/diagrams/3_plane_architecture.png"):
         slide.shapes.add_picture("SIH_PPT/assets/diagrams/3_plane_architecture.png", Inches(0.9), Inches(1.5), Inches(6.6), Inches(5.3))
 
-    # Right Side: Architectural Planes Details
     add_card(slide, Inches(7.8), Inches(1.4), Inches(4.733), Inches(5.5), border_color=AZURE_BRIGHT)
     tb = slide.shapes.add_textbox(Inches(8.0), Inches(1.6), Inches(4.333), Inches(5.1))
     tf = tb.text_frame
@@ -272,7 +254,6 @@ def build_slide_5():
     set_slide_background(slide)
     add_slide_header(slide, "Semantic Retrieval: Text & Image-Based EO Search")
 
-    # Left Column: Capabilities
     add_card(slide, Inches(0.8), Inches(1.4), Inches(5.7), Inches(5.5), border_color=AZURE_MAIN)
     tb = slide.shapes.add_textbox(Inches(1.0), Inches(1.6), Inches(5.3), Inches(5.1))
     tf = tb.text_frame
@@ -297,13 +278,11 @@ def build_slide_5():
         p.font.bold = True
         p.font.size = Pt(11)
         p.font.color.rgb = TEXT_WHITE
-
         run = p.add_run()
         run.text = c_desc
         run.font.bold = False
         run.font.color.rgb = TEXT_MUTED
 
-    # Right Column: Visual Search Flow Illustration
     add_card(slide, Inches(6.8), Inches(1.4), Inches(5.733), Inches(5.5), border_color=AZURE_BRIGHT)
     tb2 = slide.shapes.add_textbox(Inches(7.0), Inches(1.6), Inches(5.333), Inches(5.1))
     tf2 = tb2.text_frame
@@ -329,12 +308,10 @@ def build_slide_6():
     set_slide_background(slide)
     add_slide_header(slide, "Multi-Temporal Intelligence: Spectral Trajectories & Onset")
 
-    # Left Side: Trajectory Chart
     add_card(slide, Inches(0.8), Inches(1.4), Inches(6.8), Inches(5.5), border_color=AZURE_MAIN)
     if os.path.exists("SIH_PPT/assets/charts/temporal_trajectory.png"):
         slide.shapes.add_picture("SIH_PPT/assets/charts/temporal_trajectory.png", Inches(0.9), Inches(1.5), Inches(6.6), Inches(5.3))
 
-    # Right Side: Operational Trajectory Logic
     add_card(slide, Inches(7.8), Inches(1.4), Inches(4.733), Inches(5.5), border_color=AZURE_BRIGHT)
     tb = slide.shapes.add_textbox(Inches(8.0), Inches(1.6), Inches(4.333), Inches(5.1))
     tf = tb.text_frame
@@ -366,12 +343,10 @@ def build_slide_7():
     set_slide_background(slide)
     add_slide_header(slide, "False-Alarm Suppression: Eliminating Operational Noise")
 
-    # Left Side: Funnel Diagram
     add_card(slide, Inches(0.8), Inches(1.4), Inches(6.8), Inches(5.5), border_color=AZURE_MAIN)
     if os.path.exists("SIH_PPT/assets/diagrams/false_alarm_funnel.png"):
         slide.shapes.add_picture("SIH_PPT/assets/diagrams/false_alarm_funnel.png", Inches(0.9), Inches(1.5), Inches(6.6), Inches(5.3))
 
-    # Right Side: Filtering Explanation
     add_card(slide, Inches(7.8), Inches(1.4), Inches(4.733), Inches(5.5), border_color=AZURE_BRIGHT)
     tb = slide.shapes.add_textbox(Inches(8.0), Inches(1.6), Inches(4.333), Inches(5.1))
     tf = tb.text_frame
@@ -403,7 +378,6 @@ def build_slide_8():
     set_slide_background(slide)
     add_slide_header(slide, "Analyst Workstation: Single AOI Investigation Workflow")
 
-    # Main UI Screenshot
     add_card(slide, Inches(0.8), Inches(1.4), Inches(11.733), Inches(5.5), border_color=AZURE_BRIGHT)
     if os.path.exists("SIH_PPT/assets/ui/analyst_workstation_mock.png"):
         slide.shapes.add_picture("SIH_PPT/assets/ui/analyst_workstation_mock.png", Inches(0.9), Inches(1.5), Inches(11.533), Inches(5.3))
@@ -414,12 +388,10 @@ def build_slide_9():
     set_slide_background(slide)
     add_slide_header(slide, "System Validation & Quantitative Performance Metrics")
 
-    # Left Side: Benchmark Chart
     add_card(slide, Inches(0.8), Inches(1.4), Inches(7.5), Inches(5.5), border_color=AZURE_MAIN)
     if os.path.exists("SIH_PPT/assets/charts/retrieval_benchmark.png"):
         slide.shapes.add_picture("SIH_PPT/assets/charts/retrieval_benchmark.png", Inches(0.9), Inches(1.5), Inches(7.3), Inches(5.3))
 
-    # Right Side: Key Measured Numbers
     add_card(slide, Inches(8.5), Inches(1.4), Inches(4.033), Inches(5.5), border_color=AZURE_BRIGHT)
     tb = slide.shapes.add_textbox(Inches(8.7), Inches(1.6), Inches(3.633), Inches(5.1))
     tf = tb.text_frame
@@ -447,12 +419,129 @@ def build_slide_9():
         p2.space_after = Pt(10)
 
 def build_slide_10():
-    """Slide 10: Air-Gapped Deployment & PS Requirement Coverage"""
+    """Slide 10: Technical & Operational Feasibility"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
-    add_slide_header(slide, "Operational Deployment & PS 26227 Coverage Matrix")
+    add_slide_header(slide, "Technical & Operational Feasibility Analysis")
 
-    # Left Box: Deployment Architecture
+    feasibility_cards = [
+        ("HARDWARE & EDGE FEASIBILITY", "Runs on standard military workstation hardware or tactical edge servers (NVIDIA Orin/RTX). Minimum requirements: 16GB RAM, 4-core CPU, optional GPU acceleration.", AZURE_BRIGHT),
+        ("DATA SOURCE INTEGRATION", "Seamlessly ingests open Earth Observation archives (Sentinel-2, Landsat-8/9, PlanetScope COGs) using standard STAC catalogs and GeoTIFF drivers.", AZURE_MAIN),
+        ("ALGORITHMIC MATURITY", "Uses proven, highly optimized open-weights VLM transformer backbones (OpenCLIP) and PostGIS spatial indexing with zero proprietary cloud locks.", AZURE_BRIGHT),
+        ("HUMAN-IN-THE-LOOP DESIGN", "Augments analyst decision-making rather than replacing it. Confidence ranking and split-screen visual evidence ensure immediate operational adoption.", AZURE_MAIN)
+    ]
+
+    for idx, (title, desc, color) in enumerate(feasibility_cards):
+        row = idx // 2
+        col = idx % 2
+        left = Inches(0.8 + col * 5.95)
+        top = Inches(1.5 + row * 2.7)
+        add_card(slide, left, top, Inches(5.7), Inches(2.5), border_color=color)
+
+        tb = slide.shapes.add_textbox(left + Inches(0.2), top + Inches(0.2), Inches(5.3), Inches(2.1))
+        tf = tb.text_frame
+        tf.word_wrap = True
+
+        p = tf.paragraphs[0]
+        p.text = title
+        p.font.size = Pt(13)
+        p.font.bold = True
+        p.font.color.rgb = color
+
+        p2 = tf.add_paragraph()
+        p2.text = desc
+        p2.font.size = Pt(11)
+        p2.font.color.rgb = TEXT_WHITE
+
+def build_slide_11():
+    """Slide 11: Commercial & Financial Viability"""
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    set_slide_background(slide)
+    add_slide_header(slide, "Commercial & Strategic Viability")
+
+    viability_pillars = [
+        ("ZERO RECURRING LICENSING", "Built entirely on open-source stack (FastAPI, PyTorch, PostGIS, MapLibre GL). No ongoing per-user or per-gigabyte commercial API fees."),
+        ("AIR-GAPPED FIELD READY", "100% local deployment eliminates cloud bandwidth, egress costs, and satellite uplink vulnerabilities in disconnected environments."),
+        ("INCREMENTAL SCALABILITY", "Modular architecture allows seamless expansion from single tactical field laptops to command-center server clusters.")
+    ]
+
+    for idx, (p_title, p_desc) in enumerate(viability_pillars):
+        left = Inches(0.8 + idx * 3.95)
+        add_card(slide, left, Inches(1.5), Inches(3.8), Inches(5.4), border_color=AZURE_BRIGHT)
+
+        tb = slide.shapes.add_textbox(left + Inches(0.2), Inches(1.7), Inches(3.4), Inches(5.0))
+        tf = tb.text_frame
+        tf.word_wrap = True
+
+        p = tf.paragraphs[0]
+        p.text = p_title
+        p.font.size = Pt(13)
+        p.font.bold = True
+        p.font.color.rgb = AZURE_BRIGHT
+
+        p2 = tf.add_paragraph()
+        p2.text = p_desc
+        p2.font.size = Pt(11)
+        p2.font.color.rgb = TEXT_WHITE
+
+def build_slide_12():
+    """Slide 12: Operational Impact & Key System Benefits"""
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    set_slide_background(slide)
+    add_slide_header(slide, "Operational Impact & Measurable Benefits")
+
+    # Impact Comparison Table / Cards
+    add_card(slide, Inches(0.8), Inches(1.4), Inches(11.733), Inches(5.5), border_color=AZURE_MAIN)
+
+    rows, cols = 5, 3
+    left, top, width, height = Inches(1.0), Inches(1.6), Inches(11.333), Inches(5.1)
+    table_shape = slide.shapes.add_table(rows, cols, left, top, width, height)
+    table = table_shape.table
+
+    table.columns[0].width = Inches(2.8)
+    table.columns[1].width = Inches(4.2)
+    table.columns[2].width = Inches(4.333)
+
+    headers = ["Operational Dimension", "Traditional EO Workflow", "With Platform"]
+    for i, h in enumerate(headers):
+        cell = table.cell(0, i)
+        cell.text = h
+        cell.fill.solid()
+        cell.fill.fore_color.rgb = BG_CARD_LIGHT
+        for p in cell.text_frame.paragraphs:
+            p.font.size = Pt(11)
+            p.font.bold = True
+            p.font.color.rgb = AZURE_BRIGHT
+
+    impact_matrix = [
+        ("Query Discovery Time", "Hours spent manually filtering metadata.", "< 85 ms semantic instant search."),
+        ("False Alarm Fatigue", "70%+ false alarms from clouds & seasons.", "93%+ false-alarm suppression rate."),
+        ("Temporal Resolution", "Pairwise before/after manual comparison.", "Multi-year trajectory onset pinpointing."),
+        ("Evidence Dossier", "Manual copy-pasting & screenshot reports.", "Hashed automated cryptographic dossier.")
+    ]
+
+    for r_idx, row_data in enumerate(impact_matrix):
+        for c_idx, val in enumerate(row_data):
+            cell = table.cell(r_idx + 1, c_idx)
+            cell.text = val
+            cell.fill.solid()
+            cell.fill.fore_color.rgb = BG_CARD
+            for p in cell.text_frame.paragraphs:
+                p.font.size = Pt(10.5)
+                if c_idx == 2:
+                    p.font.color.rgb = SUCCESS_GREEN
+                    p.font.bold = True
+                elif c_idx == 1:
+                    p.font.color.rgb = ALERT_RED
+                else:
+                    p.font.color.rgb = TEXT_WHITE
+
+def build_slide_13():
+    """Slide 13: Deployment Architecture & Requirement Coverage Matrix"""
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    set_slide_background(slide)
+    add_slide_header(slide, "Deployment Architecture & Requirement Traceability Matrix")
+
     add_card(slide, Inches(0.8), Inches(1.4), Inches(4.5), Inches(5.5), border_color=AZURE_MAIN)
     tb = slide.shapes.add_textbox(Inches(1.0), Inches(1.6), Inches(4.1), Inches(5.1))
     tf = tb.text_frame
@@ -482,7 +571,6 @@ def build_slide_10():
         run.font.bold = False
         run.font.color.rgb = TEXT_MUTED
 
-    # Right Side: PS Requirement Traceability Table
     add_card(slide, Inches(5.5), Inches(1.4), Inches(7.033), Inches(5.5), border_color=AZURE_BRIGHT)
 
     rows, cols = 7, 3
@@ -525,11 +613,11 @@ def build_slide_10():
                 p.font.color.rgb = SUCCESS_GREEN if "VERIFIED" in val else TEXT_WHITE
 
 # -----------------------------------------------------------------------------
-# TECHNICAL BACKUP SLIDES (11 TO 18)
+# TECHNICAL BACKUP SLIDES (14 TO 21)
 # -----------------------------------------------------------------------------
 
-def build_slide_11():
-    """Slide 11: Deep Technical Ingestion Pipeline"""
+def build_slide_14():
+    """Backup 1: Ingestion Pipeline"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 1: Ingestion & Preprocessing Architecture", "TECHNICAL DEEP DIVE")
@@ -564,8 +652,8 @@ def build_slide_11():
         p2.font.color.rgb = TEXT_WHITE
         p.space_after = Pt(12)
 
-def build_slide_12():
-    """Slide 12: Multimodal Embedding & Vector Indexing"""
+def build_slide_15():
+    """Backup 2: Multimodal Embedding & Vector Indexing"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 2: Multimodal Embedding & Vector Search Mechanics", "TECHNICAL DEEP DIVE")
@@ -600,8 +688,8 @@ def build_slide_12():
         p2.font.color.rgb = TEXT_WHITE
         p.space_after = Pt(12)
 
-def build_slide_13():
-    """Slide 13: Spectral Change Mathematics"""
+def build_slide_16():
+    """Backup 3: Spectral Change Mathematics"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 3: Spectral Change Mathematics & Trajectory Formulations", "TECHNICAL DEEP DIVE")
@@ -636,8 +724,8 @@ def build_slide_13():
         p2.font.color.rgb = TEXT_WHITE
         p.space_after = Pt(12)
 
-def build_slide_14():
-    """Slide 14: False-Alarm Filtering Logic & Math"""
+def build_slide_17():
+    """Backup 4: False-Alarm Filtering Logic & Math"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 4: False-Alarm Suppression Algorithms & Noise Reduction", "TECHNICAL DEEP DIVE")
@@ -672,8 +760,8 @@ def build_slide_14():
         p2.font.color.rgb = TEXT_WHITE
         p.space_after = Pt(12)
 
-def build_slide_15():
-    """Slide 15: Air-Gapped Security & On-Prem Deployment"""
+def build_slide_18():
+    """Backup 5: Air-Gapped Security & On-Prem Deployment"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 5: Air-Gapped Security & Local Infrastructure", "TECHNICAL DEEP DIVE")
@@ -708,8 +796,8 @@ def build_slide_15():
         p2.font.color.rgb = TEXT_WHITE
         p.space_after = Pt(12)
 
-def build_slide_16():
-    """Slide 16: Quantitative Evaluation Methodology"""
+def build_slide_19():
+    """Backup 6: Quantitative Evaluation Methodology"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 6: Ground Truth Dataset & Evaluation Framework", "TECHNICAL DEEP DIVE")
@@ -744,8 +832,8 @@ def build_slide_16():
         p2.font.color.rgb = TEXT_WHITE
         p.space_after = Pt(12)
 
-def build_slide_17():
-    """Slide 17: Comprehensive PS 26227 Requirement Matrix"""
+def build_slide_20():
+    """Backup 7: Comprehensive PS 26227 Requirement Matrix"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 7: Full PS 26227 Requirement Traceability Matrix", "TECHNICAL DEEP DIVE")
@@ -792,8 +880,8 @@ def build_slide_17():
                 p.font.size = Pt(9.5)
                 p.font.color.rgb = SUCCESS_GREEN if "COMPLIANT" in val else TEXT_WHITE
 
-def build_slide_18():
-    """Slide 18: Scalability Roadmap & Field Deployment Strategy"""
+def build_slide_21():
+    """Backup 8: Scalability Roadmap & Field Deployment Strategy"""
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_slide_background(slide)
     add_slide_header(slide, "Backup 8: Future Scalability & Field Deployment Roadmap", "TECHNICAL DEEP DIVE")
@@ -832,9 +920,9 @@ def build_slide_18():
 # MAIN BUILD EXECUTION
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
-    print("Building SIH 26227 Presentation Deck (18 Slides)...")
+    print("Building SIH 26227 Presentation Deck (21 Slides)...")
 
-    # Core Operational Slides (1-10)
+    # Core Operational & Feasibility / Viability / Impact Slides (1-13)
     build_slide_1()
     build_slide_2()
     build_slide_3()
@@ -844,17 +932,20 @@ if __name__ == "__main__":
     build_slide_7()
     build_slide_8()
     build_slide_9()
-    build_slide_10()
+    build_slide_10() # Feasibility
+    build_slide_11() # Viability
+    build_slide_12() # Impact & Benefits
+    build_slide_13() # Deployment & Matrix
 
-    # Technical Backup Slides (11-18)
-    build_slide_11()
-    build_slide_12()
-    build_slide_13()
+    # Technical Backup Slides (14-21)
     build_slide_14()
     build_slide_15()
     build_slide_16()
     build_slide_17()
     build_slide_18()
+    build_slide_19()
+    build_slide_20()
+    build_slide_21()
 
     output_path = "SIH_PPT/SIH_26227_Geospatial_Intelligence_Platform.pptx"
     prs.save(output_path)
